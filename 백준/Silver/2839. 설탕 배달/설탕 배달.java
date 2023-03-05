@@ -1,40 +1,38 @@
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException{
+    static int N;
 
+    public static void main(String[] args) throws IOException {
 
+        initInput();
+        System.out.println(getMinValue());
+    }
+
+    static void initInput() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(br.readLine());
+
         br.close();
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        Integer input = Integer.valueOf(st.nextToken());
+    }
 
-        int count=0;
+    static int getMinValue(){
 
-        while(true){
+        int fiveCount = N / 5;
+        int remain;
 
-            if(input%5==0){
-                count+=input/5;
-                bw.write(String.valueOf(count));
-                break;
-            }
-            else{
-                input-=3;
-                count++;
-            }
+        while(fiveCount >= 0){
 
-            if(input<0){
-                bw.write(String.valueOf(-1));
-                break;
-            }
+            remain = N - fiveCount * 5;
+
+            if(remain % 3 == 0) return fiveCount + remain / 3;
+
+            fiveCount--;
         }
 
-        bw.flush();
-        bw.close();
-
+        return -1;
     }
 
 }
